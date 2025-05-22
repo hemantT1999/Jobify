@@ -82,7 +82,7 @@ const AppProvider = ({ children }) => {
   // -------------------axios---------------------- //
   // creating Setup Instance with header for requests
   const authFetch = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: "https://jobify-1-4cua.onrender.com/api/v1",
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const AppProvider = ({ children }) => {
   // Add request interceptor
   authFetch.interceptors.request.use(
     (config) => {
-      config.headers["Authorization"] = `Bearer ${state.token}`;
+      config.headers.Authorization = `Bearer ${state.token}`;
       return config;
     },
     (error) => {
