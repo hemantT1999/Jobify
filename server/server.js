@@ -31,33 +31,31 @@ app.use(express.json());
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
+
 app.use(
   cors({
-    origin: [
-      "https://jobtrackingh.netlify.app",
-      "http://localhost:3000",
-      "https://jobify-1-4cua.onrender.com",
-    ],
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "https://jobtrackingh.netlify.app",
+        "http://localhost:3000",
+        "https://jobify-1-4cua.onrender.com",
+      ];
+
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error("CORS not allowed"), false);
+      }
+
+      return callback(null, true);
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Content-Range"],
   })
 );
-
-// Security headers
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", req.headers.origin);
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Authorization"
-  );
-  next();
-});
 
 // Routes
 app.get("/", (req, res) => {
