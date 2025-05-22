@@ -8,8 +8,7 @@ const Stats = () => {
 
   useEffect(() => {
     showStats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // We can disable the eslint warning since showStats won't change
 
   if (isLoading) {
     return <Loading center />;

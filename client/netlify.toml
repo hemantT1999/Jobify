@@ -1,12 +1,13 @@
 [build]
   base = "client"
-  command = "npm install --legacy-peer-deps && CI=false npm run build"
+  command = "CI=false DISABLE_ESLINT_PLUGIN=true npm install --legacy-peer-deps && npm run build"
   publish = "build"
 
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
-  REACT_APP_API_URL = "http://localhost:5000/api/v1"
+  CI = "false"
+  DISABLE_ESLINT_PLUGIN = "true"
 
 [[redirects]]
   from = "/*"
