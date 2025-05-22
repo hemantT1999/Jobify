@@ -1,0 +1,4 @@
+// filepath: c:\Users\LENOVO\Downloads\Jobify-main\Jobify-main\client\.babelrc
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}

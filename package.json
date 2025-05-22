@@ -28,5 +28,9 @@
   "homepage": "https://github.com/abdrahmansoltan/Jobify#readme",
   "dependencies": {
     "concurrently": "^7.2.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1"
   }
 }
