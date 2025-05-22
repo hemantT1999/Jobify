@@ -83,7 +83,6 @@ const AppProvider = ({ children }) => {
   // creating Setup Instance with header for requests
   const authFetch = axios.create({
     baseURL: "https://jobify-1-4cua.onrender.com/api/v1",
-    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },
@@ -141,8 +140,11 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
-      const response = await axios.post(`/api/v1/auth/register`, currentUser);
-      const { user, token, location } = response.data;
+      const { data } = await axios.post(
+        "https://jobify-1-4cua.onrender.com/api/v1/auth/register",
+        currentUser
+      );
+      const { user, token, location } = data;
       dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: { user, token, location },
@@ -151,7 +153,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       dispatch({
         type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response?.data?.msg || "Something went wrong" },
       });
     }
     clearAlert();
@@ -160,17 +162,20 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
-      const response = await axios.post(`/api/v1/auth/login`, currentUser);
-      const { user, token, location } = response.data;
+      const { data } = await axios.post(
+        "https://jobify-1-4cua.onrender.com/api/v1/auth/login",
+        currentUser
+      );
+      const { user, token, location } = data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: { user, token, location },
       });
-      addUserToLocalStorage({ user, token, location }); // <-- THIS IS IMPORTANT
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response?.data?.msg || "Something went wrong" },
       });
     }
     clearAlert();

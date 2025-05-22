@@ -33,16 +33,31 @@ app.use(xss());
 app.use(mongoSanitize());
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? ["https://jobtrackingh.netlify.app"]
-        : ["http://localhost:3000"],
+    origin: [
+      "https://jobtrackingh.netlify.app",
+      "http://localhost:3000",
+      "https://jobify-1-4cua.onrender.com",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Range", "X-Content-Range"],
   })
 );
+
+// Security headers
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Authorization"
+  );
+  next();
+});
 
 // Routes
 app.get("/", (req, res) => {

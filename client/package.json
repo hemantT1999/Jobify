@@ -54,6 +54,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://jobify-1-4cua.onrender.com:5000"
+  }
 }
