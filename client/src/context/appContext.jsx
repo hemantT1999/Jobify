@@ -82,12 +82,13 @@ const AppProvider = ({ children }) => {
   // -------------------axios---------------------- //
   // creating Setup Instance with header for requests
   const authFetch = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api/v1",
+    baseURL: "https://your-backend-url.com/api/v1", // Replace with your actual backend URL
   });
-  // request Interceptors: https://axios-http.com/docs/interceptors
+
+  // Add request interceptor
   authFetch.interceptors.request.use(
     (config) => {
-      config.headers.common["Authorization"] = `Bearer ${state.token}`;
+      config.headers["Authorization"] = `Bearer ${state.token}`;
       return config;
     },
     (error) => {

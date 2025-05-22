@@ -2,6 +2,7 @@ import express from "express";
 const app = express();
 import "express-async-errors";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 
 // Security Packages
@@ -18,7 +19,6 @@ import { auth } from "./middlewares/auth.js";
 // Middleware
 import notFoundMiddleware from "./middlewares/not-found.js";
 import errorHandlerMiddleware from "./middlewares/error-handler.js";
-import cors from "cors";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -33,10 +33,9 @@ app.use(xss());
 app.use(mongoSanitize());
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://hemantjob.netlify.app"
-        : "http://localhost:3000",
+    origin: ["https://hemantjob.netlify.app", "http://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   })
 );
 
