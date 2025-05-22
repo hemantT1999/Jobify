@@ -82,7 +82,7 @@ const AppProvider = ({ children }) => {
   // -------------------axios---------------------- //
   // creating Setup Instance with header for requests
   const authFetch = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api/v1",
+    baseURL: process.env.REACT_APP_API_URL,
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
