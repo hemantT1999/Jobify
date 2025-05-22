@@ -18,6 +18,7 @@ import { auth } from "./middlewares/auth.js";
 // Middleware
 import notFoundMiddleware from "./middlewares/not-found.js";
 import errorHandlerMiddleware from "./middlewares/error-handler.js";
+import cors from "cors";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -30,6 +31,14 @@ app.use(express.json());
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://hemantjob.netlify.app"
+        : "http://localhost:3000",
+  })
+);
 
 // Routes
 app.use("/api/v1/auth", authRouter);
