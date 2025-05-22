@@ -43,6 +43,9 @@ app.use(
 );
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Jobify API");
+});
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", auth, jobsRouter);
 
