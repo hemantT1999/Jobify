@@ -8,7 +8,7 @@ const Stats = () => {
 
   useEffect(() => {
     showStats();
-  }, []); // We can disable the eslint warning since showStats won't change
+  }, [showStats]);
 
   if (isLoading) {
     return <Loading center />;
