@@ -1,0 +1,18 @@
+:\Users\LENOVO\Downloads\Jobify-main\Jobify-main\render.yaml
+services:
+  - type: web
+    name: jobify-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_LIFETIME
+        value: 1d
